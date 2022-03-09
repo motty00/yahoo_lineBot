@@ -1,14 +1,13 @@
-from bs4 import BeautifulSoup
 import urllib.request as req
 import datetime
-from linebot import LineBotApi
-import json
-from linebot.models import (
-    TextSendMessage
-)
 import schedule
 import time
 import os
+from bs4 import BeautifulSoup
+from linebot import LineBotApi
+from linebot.models import (
+    TextSendMessage
+)
 
 
 def job():
