@@ -1,6 +1,5 @@
 import urllib.request as req
 import datetime
-import schedule
 import time
 import os
 from bs4 import BeautifulSoup
@@ -10,11 +9,10 @@ from linebot.models import (
 )
 
 
-def job():
+def lambda_handler(event, context):
     CHANNEL_ACCESS_TOKEN = os.environ['CHANNEL_ACCESS_TOKEN']
-    # USER_ID = os.environ['USER_ID']
+    USER_ID = os.environ['USER_ID']
     line_bot_api = LineBotApi(CHANNEL_ACCESS_TOKEN)
-
 
     dt = datetime.datetime.now()
     dt_now = dt + datetime.timedelta(hours = 9)
@@ -47,12 +45,5 @@ def job():
         # タイトル有り
     messages = TextSendMessage(text="【"+title0+"】"+"\n"+message0+"\n"+"---------------------------------\n【"+title1+"】"+message1+"\n"+"---------------------------------\n【"+title2+"】"+message2+"\n"+"---------------------------------\n【"+title3+"】"+message3+"\n"+"---------------------------------\n【"+title4+"】"+message4)
     line_bot_api.broadcast(messages=messages)
+    # line_bot_api.push_message(USER_ID, messages=messages)
     
-
-schedule.every().day.at("07:00").do(job)
-
-
-
-while True:
-    schedule.run_pending()
-    time.sleep(1)
